@@ -1,7 +1,7 @@
 package cc.tianbin.springframework.test;
 
-import cc.tianbin.springframework.BeanDefinition;
-import cc.tianbin.springframework.BeanFactory;
+import cc.tianbin.springframework.factory.config.BeanDefinition;
+import cc.tianbin.springframework.factory.support.DefaultListableBeanFactory;
 import cc.tianbin.springframework.test.bean.UserService;
 import org.junit.Test;
 
@@ -13,16 +13,20 @@ public class AppTest {
     @Test
     public void testBeanFactory() {
         // 初始化 BeanFactory
-        BeanFactory beanFactory = new BeanFactory();
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
         // 注册 bean
-        String userServiceBeanName = "userService";
-        BeanDefinition beanDefinition = new BeanDefinition(new UserService());
-        beanFactory.registerBeanDefinition(userServiceBeanName, beanDefinition);
+        String USER_SERVICE_BEAN_NAME = "userService";
+        BeanDefinition beanDefinition = new BeanDefinition(UserService.class);
+        beanFactory.registerBeanDefinition(USER_SERVICE_BEAN_NAME, beanDefinition);
 
         // 获取 bean
-        UserService userService = (UserService) beanFactory.getBean(userServiceBeanName);
+        UserService userService = (UserService) beanFactory.getBean(USER_SERVICE_BEAN_NAME);
         userService.queryUserInfo();
+
+        // 第2次 直接从单例池中拿bean
+        UserService userServiceFromSingleton = (UserService) beanFactory.getBean(USER_SERVICE_BEAN_NAME);
+        userServiceFromSingleton.queryUserInfo();
     }
 
 }
