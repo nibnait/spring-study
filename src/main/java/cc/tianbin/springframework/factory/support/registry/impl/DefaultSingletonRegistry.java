@@ -1,6 +1,6 @@
-package cc.tianbin.springframework.factory.support;
+package cc.tianbin.springframework.factory.support.registry.impl;
 
-import cc.tianbin.springframework.factory.config.SingletonBeanRegistry;
+import cc.tianbin.springframework.factory.support.registry.SingletonBeanRegistry;
 
 import java.util.HashMap;
 import java.util.Map;

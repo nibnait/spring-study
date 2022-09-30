@@ -1,7 +1,8 @@
-package cc.tianbin.springframework.factory.support;
+package cc.tianbin.springframework.factory.support.registry.impl;
 
 import cc.tianbin.springframework.factory.config.BeanDefinition;
-import cc.tianbin.springframework.factory.config.BeanDefinitionRegistry;
+import cc.tianbin.springframework.factory.support.AbstractAutowireCapableBeanFactory;
+import cc.tianbin.springframework.factory.support.registry.BeanDefinitionRegistry;
 import io.github.nibnait.common.exception.BeansException;
 
 import java.util.Map;
@@ -28,4 +29,5 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) {
         beanDefinitionMap.put(beanName, beanDefinition);
     }
+
 }

@@ -5,6 +5,8 @@ package cc.tianbin.springframework;
  */
 public interface BeanFactory {
 
-    Object getBean(String name);
+    Object getBean(String beanName);
+
+    Object getBean(String beanName, Object... args);
 
 }

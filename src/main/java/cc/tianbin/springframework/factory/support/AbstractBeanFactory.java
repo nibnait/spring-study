@@ -2,6 +2,7 @@ package cc.tianbin.springframework.factory.support;
 
 import cc.tianbin.springframework.BeanFactory;
 import cc.tianbin.springframework.factory.config.BeanDefinition;
+import cc.tianbin.springframework.factory.support.registry.impl.DefaultSingletonRegistry;
 
 /**
  * 模板方法
@@ -14,13 +15,22 @@ public abstract class AbstractBeanFactory extends DefaultSingletonRegistry imple
      */
     @Override
     public Object getBean(String beanName) {
+        return doGetBean(beanName, null);
+    }
+
+    @Override
+    public Object getBean(String beanName, Object... args) {
+        return doGetBean(beanName, args);
+    }
+
+    protected Object doGetBean(String beanName, Object[] args) {
         Object bean = getSingletonBean(beanName);
         if (bean != null) {
             return bean;
         }
 
         BeanDefinition beanDefinition = getBeanDefinition(beanName);
-        return createBean(beanName, beanDefinition);
+        return createBean(beanName, beanDefinition, args);
     }
 
     /**
@@ -31,6 +41,6 @@ public abstract class AbstractBeanFactory extends DefaultSingletonRegistry imple
     /**
      * createBean
      */
-    protected abstract Object createBean(String beanName, BeanDefinition beanDefinition);
+    protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args);
 
 }

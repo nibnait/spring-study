@@ -1,7 +1,7 @@
 package cc.tianbin.springframework.test;
 
 import cc.tianbin.springframework.factory.config.BeanDefinition;
-import cc.tianbin.springframework.factory.support.DefaultListableBeanFactory;
+import cc.tianbin.springframework.factory.support.registry.impl.DefaultListableBeanFactory;
 import cc.tianbin.springframework.test.bean.UserService;
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ public class AppTest {
         beanFactory.registerBeanDefinition(USER_SERVICE_BEAN_NAME, beanDefinition);
 
         // 获取 bean
-        UserService userService = (UserService) beanFactory.getBean(USER_SERVICE_BEAN_NAME);
+        UserService userService = (UserService) beanFactory.getBean(USER_SERVICE_BEAN_NAME, "tianbin");
         userService.queryUserInfo();
 
         // 第2次 直接从单例池中拿bean
