@@ -1,6 +1,6 @@
-package cc.tianbin.springframework.factory.support.registry;
+package cc.tianbin.springframework.beans.factory.support.registry;
 
-import cc.tianbin.springframework.factory.config.BeanDefinition;
+import cc.tianbin.springframework.beans.factory.config.BeanDefinition;
 
 /**
  * Created by nibnait on 2022/09/21

@@ -1,4 +1,4 @@
-package cc.tianbin.springframework.factory.support.registry;
+package cc.tianbin.springframework.beans.factory.support.registry;
 
 /**
  * Created by nibnait on 2022/09/18

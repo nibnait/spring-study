@@ -1,4 +1,4 @@
-package cc.tianbin.springframework;
+package cc.tianbin.springframework.beans.factory;
 
 /**
  * Created by nibnait on 2022/09/17

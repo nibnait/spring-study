@@ -1,9 +1,9 @@
-package cc.tianbin.springframework.factory.support.registry.impl;
+package cc.tianbin.springframework.beans.factory.support.registry.impl;
 
-import cc.tianbin.springframework.factory.config.BeanDefinition;
-import cc.tianbin.springframework.factory.support.AbstractAutowireCapableBeanFactory;
-import cc.tianbin.springframework.factory.support.registry.BeanDefinitionRegistry;
-import io.github.nibnait.common.exception.BeansException;
+import cc.tianbin.springframework.beans.exception.BeansException;
+import cc.tianbin.springframework.beans.factory.config.BeanDefinition;
+import cc.tianbin.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory;
+import cc.tianbin.springframework.beans.factory.support.registry.BeanDefinitionRegistry;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

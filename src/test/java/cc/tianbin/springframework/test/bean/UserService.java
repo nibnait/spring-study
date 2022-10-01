@@ -1,17 +1,18 @@
 package cc.tianbin.springframework.test.bean;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * Created by nibnait on 2022/09/18
  */
+@Slf4j
 public class UserService {
 
-    private String name;
+    private String userId;
 
-    public UserService(String name) {
-        this.name = name;
-    }
+    private UserDao userDao;
 
     public void queryUserInfo(){
-        System.out.println("查询用户信息: " + name);
+        log.info("查询用户信息 {} {}", userId, userDao.queryUserName(userId));
     }
 }

@@ -1,10 +1,10 @@
-package cc.tianbin.springframework.factory.support.instantiation.impl;
+package cc.tianbin.springframework.beans.factory.support.instantiation.impl;
 
-import cc.tianbin.springframework.factory.config.BeanDefinition;
-import cc.tianbin.springframework.factory.support.instantiation.InstantiationStrategy;
+import cc.tianbin.springframework.beans.exception.BeansException;
+import cc.tianbin.springframework.beans.factory.config.BeanDefinition;
+import cc.tianbin.springframework.beans.factory.support.instantiation.InstantiationStrategy;
 import com.alibaba.excel.support.cglib.proxy.Enhancer;
 import com.alibaba.excel.support.cglib.proxy.NoOp;
-import io.github.nibnait.common.exception.BeansException;
 
 import java.lang.reflect.Constructor;
 

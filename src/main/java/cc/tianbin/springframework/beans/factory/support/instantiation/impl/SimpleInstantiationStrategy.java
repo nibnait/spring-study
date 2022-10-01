@@ -1,9 +1,8 @@
-package cc.tianbin.springframework.factory.support.instantiation.impl;
+package cc.tianbin.springframework.beans.factory.support.instantiation.impl;
 
-import cc.tianbin.springframework.factory.config.BeanDefinition;
-import cc.tianbin.springframework.factory.support.instantiation.InstantiationStrategy;
-import io.github.nibnait.common.exception.BeansException;
-import io.github.nibnait.common.utils.DataUtils;
+import cc.tianbin.springframework.beans.exception.BeansException;
+import cc.tianbin.springframework.beans.factory.config.BeanDefinition;
+import cc.tianbin.springframework.beans.factory.support.instantiation.InstantiationStrategy;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -25,7 +24,7 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
             return beanClass.getDeclaredConstructor(constructor.getParameterTypes()).newInstance();
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
                  InvocationTargetException e) {
-            throw new BeansException(DataUtils.format("Failed to instantiate [{}]", beanClass.getName()), e);
+            throw new BeansException(e, "Failed to instantiate [{}]", beanClass.getName());
         }
     }
 

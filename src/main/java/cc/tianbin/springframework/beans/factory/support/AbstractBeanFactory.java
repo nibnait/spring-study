@@ -1,8 +1,8 @@
-package cc.tianbin.springframework.factory.support;
+package cc.tianbin.springframework.beans.factory.support;
 
-import cc.tianbin.springframework.BeanFactory;
-import cc.tianbin.springframework.factory.config.BeanDefinition;
-import cc.tianbin.springframework.factory.support.registry.impl.DefaultSingletonRegistry;
+import cc.tianbin.springframework.beans.factory.BeanFactory;
+import cc.tianbin.springframework.beans.factory.config.BeanDefinition;
+import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultSingletonRegistry;
 
 /**
  * 模板方法
