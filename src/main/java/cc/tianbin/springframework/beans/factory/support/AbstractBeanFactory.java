@@ -1,27 +1,45 @@
 package cc.tianbin.springframework.beans.factory.support;
 
-import cc.tianbin.springframework.beans.factory.BeanFactory;
 import cc.tianbin.springframework.beans.factory.config.BeanDefinition;
+import cc.tianbin.springframework.beans.factory.config.BeanPostProcessor;
+import cc.tianbin.springframework.beans.factory.config.ConfigurableBeanFactory;
 import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultSingletonRegistry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 模板方法
  * Created by nibnait on 2022/09/19
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonRegistry implements BeanFactory {
+public abstract class AbstractBeanFactory extends DefaultSingletonRegistry implements ConfigurableBeanFactory {
 
-    /**
-     * getBean
-     */
+    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
+
     @Override
-    public Object getBean(String beanName) {
-        return doGetBean(beanName, null);
+    public Object getBean(String name) {
+        return doGetBean(name, null);
     }
 
     @Override
-    public Object getBean(String beanName, Object... args) {
-        return doGetBean(beanName, args);
+    public Object getBean(String name, Object... args) {
+        return doGetBean(name, args);
     }
+
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) {
+        return (T) getBean(name);
+    }
+
+//    @Override
+//    public <T> T getBean(Class<T> requiredType) {
+//        return (T) getBean(name);
+//    }
+//
+//    @Override
+//    public <T> T getBean(Class<T> requiredType, Object... args) {
+//        return (T) getBean(name);
+//    }
 
     protected Object doGetBean(String beanName, Object[] args) {
         Object bean = getSingletonBean(beanName);
@@ -43,4 +61,17 @@ public abstract class AbstractBeanFactory extends DefaultSingletonRegistry imple
      */
     protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args);
 
+    @Override
+    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
+        this.beanPostProcessors.remove(beanPostProcessor);
+        this.beanPostProcessors.add(beanPostProcessor);
+    }
+
+    /**
+     * Return the list of BeanPostProcessors that will get applied
+     * to beans created with this factory.
+     */
+    public List<BeanPostProcessor> getBeanPostProcessors() {
+        return this.beanPostProcessors;
+    }
 }
