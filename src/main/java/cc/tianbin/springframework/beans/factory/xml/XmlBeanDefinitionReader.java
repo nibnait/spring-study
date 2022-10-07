@@ -60,6 +60,15 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         return loadBeanDefinitions(resource);
     }
 
+    @Override
+    public int loadBeanDefinitions(String... locations) throws BeansException {
+        int registerCount = 0;
+        for (String location : locations) {
+            registerCount += loadBeanDefinitions(location);
+        }
+        return registerCount;
+    }
+
     private int doLoadBeanDefinitions(Resource resource) throws ClassNotFoundException {
         try {
             InputStream inputStream = resource.getInputStream();

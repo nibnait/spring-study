@@ -31,16 +31,6 @@ public abstract class AbstractBeanFactory extends DefaultSingletonRegistry imple
         return (T) getBean(name);
     }
 
-//    @Override
-//    public <T> T getBean(Class<T> requiredType) {
-//        return (T) getBean(name);
-//    }
-//
-//    @Override
-//    public <T> T getBean(Class<T> requiredType, Object... args) {
-//        return (T) getBean(name);
-//    }
-
     protected Object doGetBean(String beanName, Object[] args) {
         Object bean = getSingletonBean(beanName);
         if (bean != null) {

@@ -5,9 +5,9 @@ import cc.tianbin.springframework.beans.exception.BeansException;
 import java.util.Map;
 
 /**
- * Created by nibnait on 2022/10/06
+ * Created by nibnait on 2022/10/07
  */
-public interface ListableBeanFactory {
+public interface ListableBeanFactory extends BeanFactory {
 
     /**
      * 按照类型返回 Bean 实例

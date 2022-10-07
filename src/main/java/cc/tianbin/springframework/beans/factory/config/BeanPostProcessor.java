@@ -3,7 +3,7 @@ package cc.tianbin.springframework.beans.factory.config;
 import cc.tianbin.springframework.beans.exception.BeansException;
 
 /**
- * Created by nibnait on 2022/10/06
+ * Created by nibnait on 2022/10/07
  */
 public interface BeanPostProcessor {
 

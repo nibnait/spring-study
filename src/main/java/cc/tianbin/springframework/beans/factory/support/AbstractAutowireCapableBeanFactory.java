@@ -22,6 +22,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         this.instantiationStrategy = new CglibSubclassingInstantiationStrategy();
     }
 
+    public InstantiationStrategy getInstantiationStrategy() {
+        return instantiationStrategy;
+    }
+
+    public void setInstantiationStrategy(InstantiationStrategy instantiationStrategy) {
+        this.instantiationStrategy = instantiationStrategy;
+    }
+
     /**
      * 实例化一个bean。然后加到单例对象池中
      */
@@ -33,6 +41,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             bean = createBeanInstance(beanName, beanDefinition, args);
             // 填充 bean 属性
             applyPropertyValues(beanName, bean, beanDefinition);
+            // 执行 Bean 的初始化方法 和 BeanPostProcessor 的前置和后置处理方法
+            bean = initializeBean(beanName, bean, beanDefinition);
         } catch (Exception e) {
             throw new BeansException(e, "Instantiation of bean failed");
         }
@@ -84,15 +94,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             throw new BeansException(e, "error setting {} property values", beanName);
         }
     }
-
-    public InstantiationStrategy getInstantiationStrategy() {
-        return instantiationStrategy;
-    }
-
-    public void setInstantiationStrategy(InstantiationStrategy instantiationStrategy) {
-        this.instantiationStrategy = instantiationStrategy;
-    }
-
 
     private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
         // 1. 执行 BeanPostProcessor Before 处理

@@ -6,5 +6,5 @@
 AbstractAutowireCapableBeanFactory.createBeanInstance  
 中没有考虑构造函数入参数量相同，类型不同的情况
 
-### 为Bean对象注入属性和依赖Bean的功能实现
+### 为Bean对象注入属性和依赖对象
 暂时先不考虑循环依赖的情况

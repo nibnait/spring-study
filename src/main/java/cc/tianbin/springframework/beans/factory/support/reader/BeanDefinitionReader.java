@@ -20,4 +20,6 @@ public interface BeanDefinitionReader {
 
     int loadBeanDefinitions(String location) throws BeansException;
 
+    int loadBeanDefinitions(String... locations) throws BeansException;
+
 }
