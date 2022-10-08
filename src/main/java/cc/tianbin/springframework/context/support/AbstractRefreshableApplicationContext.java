@@ -2,7 +2,7 @@ package cc.tianbin.springframework.context.support;
 
 import cc.tianbin.springframework.beans.exception.BeansException;
 import cc.tianbin.springframework.beans.factory.ConfigurableListableBeanFactory;
-import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultListableBeanFactory;
+import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultListableBeanFactoryBean;
 
 /**
  * 获取 Bean 工厂和加载资源
@@ -10,20 +10,20 @@ import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultLis
  */
 public abstract class AbstractRefreshableApplicationContext extends AbstractApplicationContext {
 
-    private DefaultListableBeanFactory beanFactory;
+    private DefaultListableBeanFactoryBean beanFactory;
 
     @Override
     protected void refreshBeanFactory() throws BeansException {
-        DefaultListableBeanFactory tmpBeanFactory = createBeanFactory();
+        DefaultListableBeanFactoryBean tmpBeanFactory = createBeanFactory();
         loadBeanDefinitions(tmpBeanFactory);
         this.beanFactory = tmpBeanFactory;
     }
 
-    private DefaultListableBeanFactory createBeanFactory() {
-        return new DefaultListableBeanFactory();
+    private DefaultListableBeanFactoryBean createBeanFactory() {
+        return new DefaultListableBeanFactoryBean();
     }
 
-    protected abstract void loadBeanDefinitions(DefaultListableBeanFactory beanFactory);
+    protected abstract void loadBeanDefinitions(DefaultListableBeanFactoryBean beanFactory);
 
     @Override
     protected ConfigurableListableBeanFactory getBeanFactory() {

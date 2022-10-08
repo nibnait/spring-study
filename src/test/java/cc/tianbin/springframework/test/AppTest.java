@@ -1,6 +1,6 @@
 package cc.tianbin.springframework.test;
 
-import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultListableBeanFactory;
+import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultListableBeanFactoryBean;
 import cc.tianbin.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import cc.tianbin.springframework.context.support.ClassPathXmlApplicationContext;
 import cc.tianbin.springframework.test.bean.UserService;
@@ -17,7 +17,7 @@ public class AppTest {
     @Test
     public void test_BeanFactory() {
         // 初始化 BeanFactory
-        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        DefaultListableBeanFactoryBean beanFactory = new DefaultListableBeanFactoryBean();
 
         // 读取配置文件 & 注册 bean
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
@@ -35,7 +35,7 @@ public class AppTest {
     @Test
     public void test_BeanFactoryPostProcessorAndBeanPostProcessor() {
         // 初始化 BeanFactory
-        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        DefaultListableBeanFactoryBean beanFactory = new DefaultListableBeanFactoryBean();
 
         // 读取配置文件 & 注册 bean
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
@@ -57,7 +57,11 @@ public class AppTest {
 
     @Test
     public void test_xml() {
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:springPostProcessor.xml");
+        // 初始化 BeanFactory
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
+        applicationContext.registerShutdownHook();
+
+        // 获取 Bean 对象调用方法
         UserService userService = applicationContext.getBean(CommonConstants.USER_SERVICE, UserService.class);
         String result = userService.queryUserInfo();
         System.out.println(result);

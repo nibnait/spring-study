@@ -3,7 +3,7 @@ package cc.tianbin.springframework.beans.factory.support;
 import cc.tianbin.springframework.beans.factory.config.BeanDefinition;
 import cc.tianbin.springframework.beans.factory.config.BeanPostProcessor;
 import cc.tianbin.springframework.beans.factory.config.ConfigurableBeanFactory;
-import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultSingletonRegistry;
+import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultSingletonBeanRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * 模板方法
  * Created by nibnait on 2022/09/19
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonRegistry implements ConfigurableBeanFactory {
+public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
 
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
 

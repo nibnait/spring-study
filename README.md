@@ -8,3 +8,7 @@ AbstractAutowireCapableBeanFactory.createBeanInstance
 
 ### 为Bean对象注入属性和依赖对象
 暂时先不考虑循环依赖的情况
+
+### 资源加载器解析文件 注册对象
+XmlBeanDefinitionReader 中的 doLoadBeanDefinitions 与实际的Spring相差很大
+
