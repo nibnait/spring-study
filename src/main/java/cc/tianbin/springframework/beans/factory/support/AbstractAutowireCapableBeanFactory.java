@@ -3,8 +3,7 @@ package cc.tianbin.springframework.beans.factory.support;
 import cc.tianbin.springframework.beans.exception.BeansException;
 import cc.tianbin.springframework.beans.PropertyValue;
 import cc.tianbin.springframework.beans.PropertyValues;
-import cc.tianbin.springframework.beans.factory.DisposableBean;
-import cc.tianbin.springframework.beans.factory.InitializingBean;
+import cc.tianbin.springframework.beans.factory.*;
 import cc.tianbin.springframework.beans.factory.config.*;
 import cc.tianbin.springframework.beans.factory.support.instantiation.InstantiationStrategy;
 import cc.tianbin.springframework.beans.factory.support.instantiation.impl.CglibSubclassingInstantiationStrategy;
@@ -109,7 +108,20 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
-        // 1. 执行 BeanPostProcessor Before 处理
+        // invokeAwareMethods
+        if (bean instanceof Aware) {
+            if (bean instanceof BeanFactoryAware) {
+                ((BeanFactoryAware) bean).setBeanFactory(this);
+            }
+            if (bean instanceof BeanClassLoaderAware) {
+                ((BeanClassLoaderAware) bean).setBeanClassLoader(getBeanClassLoader());
+            }
+            if (bean instanceof BeanNameAware) {
+                ((BeanNameAware) bean).setBeanName(beanName);
+            }
+        }
+
+        // 执行 BeanPostProcessor Before 处理
         Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 
         // 执行 Bean 对象的初始化方法
@@ -119,7 +131,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             throw new BeansException(e, "Invocation of method bean [{}] failed", beanName);
         }
 
-        // 2. 执行 BeanPostProcessor After 处理
+        // 执行 BeanPostProcessor After 处理
         wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
         return wrappedBean;
     }

@@ -4,6 +4,7 @@ import cc.tianbin.springframework.beans.factory.config.BeanDefinition;
 import cc.tianbin.springframework.beans.factory.config.BeanPostProcessor;
 import cc.tianbin.springframework.beans.factory.config.ConfigurableBeanFactory;
 import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultSingletonBeanRegistry;
+import cc.tianbin.springframework.util.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.List;
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
 
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
+
+    private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
     @Override
     public Object getBean(String name) {
@@ -57,11 +60,12 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
         this.beanPostProcessors.add(beanPostProcessor);
     }
 
-    /**
-     * Return the list of BeanPostProcessors that will get applied
-     * to beans created with this factory.
-     */
     public List<BeanPostProcessor> getBeanPostProcessors() {
         return this.beanPostProcessors;
     }
+
+    public ClassLoader getBeanClassLoader() {
+        return this.beanClassLoader;
+    }
+
 }

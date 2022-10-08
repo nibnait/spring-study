@@ -4,6 +4,8 @@ import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultLis
 import cc.tianbin.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import cc.tianbin.springframework.context.support.ClassPathXmlApplicationContext;
 import cc.tianbin.springframework.test.bean.UserService;
+import cc.tianbin.springframework.test.bean.UserServiceImplAware;
+import cc.tianbin.springframework.test.bean.UserServiceImplInitAndDestroy;
 import cc.tianbin.springframework.test.common.CommonConstants;
 import cc.tianbin.springframework.test.common.MyBeanFactoryPostProcessor;
 import cc.tianbin.springframework.test.common.MyBeanPostProcessor;
@@ -65,6 +67,32 @@ public class AppTest {
         UserService userService = applicationContext.getBean(CommonConstants.USER_SERVICE, UserService.class);
         String result = userService.queryUserInfo();
         System.out.println(result);
+    }
+
+    @Test
+    public void test_xml_ImplInitAndDestroy() {
+        // 初始化 BeanFactory
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:springImplInitAndDestroy.xml");
+        applicationContext.registerShutdownHook();
+
+        // 获取 Bean 对象调用方法
+        UserServiceImplInitAndDestroy userService = applicationContext.getBean(CommonConstants.USER_SERVICE_IMPL_INIT_AND_DESTROY, UserServiceImplInitAndDestroy.class);
+        String result = userService.queryUserInfo();
+        System.out.println(result);
+    }
+
+    @Test
+    public void test_xml_ImplAware() {
+        // 初始化 BeanFactory
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:springImplAware.xml.xml");
+        applicationContext.registerShutdownHook();
+
+        // 获取 Bean 对象调用方法
+        UserServiceImplAware userService = applicationContext.getBean(CommonConstants.USER_SERVICE_IMPL_AWARE, UserServiceImplAware.class);
+        String result = userService.queryUserInfo();
+        System.out.println("result: " + result);
+        System.out.println("ApplicationContextAware：" + userService.getApplicationContext());
+        System.out.println("BeanFactoryAware：" + userService.getBeanFactory());
     }
 
 }

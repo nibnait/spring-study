@@ -1,6 +1,7 @@
 package cc.tianbin.springframework.context.support;
 
 import cc.tianbin.springframework.beans.exception.BeansException;
+import cc.tianbin.springframework.beans.factory.ApplicationContextAwareProcessor;
 import cc.tianbin.springframework.beans.factory.ConfigurableListableBeanFactory;
 import cc.tianbin.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import cc.tianbin.springframework.beans.factory.config.BeanPostProcessor;
@@ -22,6 +23,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
         // 获取 BeanFactory
         ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+
+        // 添加 ApplicationContextAwareProcessor，让继承自 ApplicationContextAware 的 Bean 对象都能感知所属的 ApplicationContext
+        beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
 
         // 在 Bean 实例化之前，执行 BeanFactoryPostProcessor
         invokeBeanFactoryPostProcessors(beanFactory);
