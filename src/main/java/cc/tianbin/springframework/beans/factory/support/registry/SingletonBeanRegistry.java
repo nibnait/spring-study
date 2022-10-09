@@ -5,6 +5,6 @@ package cc.tianbin.springframework.beans.factory.support.registry;
  */
 public interface SingletonBeanRegistry {
 
-    Object getSingletonBean(String beanName);
+    Object getSingleton(String beanName);
 
 }

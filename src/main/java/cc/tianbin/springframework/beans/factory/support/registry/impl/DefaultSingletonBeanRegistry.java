@@ -13,12 +13,14 @@ import java.util.Map;
  */
 public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 
+    protected static final Object NULL_OBJECT = new Object();
+
     private Map<String, Object> singletonObjects = new HashMap<>();
 
     private final Map<String, DisposableBean> disposableBeans = new HashMap<>();
 
     @Override
-    public Object getSingletonBean(String beanName) {
+    public Object getSingleton(String beanName) {
         return singletonObjects.get(beanName);
     }
 

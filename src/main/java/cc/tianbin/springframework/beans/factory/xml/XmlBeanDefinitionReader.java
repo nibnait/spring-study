@@ -10,7 +10,7 @@ import cc.tianbin.springframework.core.io.resource.Resource;
 import cc.tianbin.springframework.core.io.resourceloader.ResourceLoader;
 import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.XmlUtil;
-import com.alibaba.excel.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -133,12 +133,16 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         String className = bean.getAttribute("class");
         String initMethod = bean.getAttribute("init-method");
         String destroyMethodName = bean.getAttribute("destroy-method");
+        String beanScope = bean.getAttribute("scope");
 
         // 获取 Class，方便获取类中的名称
         Class<?> clazz = Class.forName(className);
         BeanDefinition beanDefinition = new BeanDefinition(clazz);
         beanDefinition.setInitMethodName(initMethod);
         beanDefinition.setDestroyMethodName(destroyMethodName);
+        if (StringUtils.isNotBlank(beanScope)) {
+            beanDefinition.setScope(beanScope);
+        }
 
         String beanName = StringUtils.isNotBlank(id) ? id : name;
         if (StringUtils.isBlank(beanName)) {

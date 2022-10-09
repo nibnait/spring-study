@@ -6,6 +6,7 @@ import cc.tianbin.springframework.context.support.ClassPathXmlApplicationContext
 import cc.tianbin.springframework.test.bean.UserService;
 import cc.tianbin.springframework.test.bean.UserServiceImplAware;
 import cc.tianbin.springframework.test.bean.UserServiceImplInitAndDestroy;
+import cc.tianbin.springframework.test.bean.UserServiceImplScope;
 import cc.tianbin.springframework.test.common.CommonConstants;
 import cc.tianbin.springframework.test.common.MyBeanFactoryPostProcessor;
 import cc.tianbin.springframework.test.common.MyBeanPostProcessor;
@@ -95,4 +96,24 @@ public class AppTest {
         System.out.println("BeanFactoryAware：" + userService.getBeanFactory());
     }
 
+    @Test
+    public void test_xml_ImplScope() {
+        // 初始化 BeanFactory
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:springScope.xml");
+        applicationContext.registerShutdownHook();
+
+        // 获取 Bean 对象调用方法
+        UserServiceImplScope userService01 = applicationContext.getBean(CommonConstants.USER_SERVICE_IMPL_SCOPE, UserServiceImplScope.class);
+        String result01 = userService01.queryUserInfo();
+        System.out.println("result01: " + result01);
+
+        UserServiceImplScope userService02 = applicationContext.getBean(CommonConstants.USER_SERVICE_IMPL_SCOPE, UserServiceImplScope.class);
+        String result02 = userService01.queryUserInfo();
+        System.out.println("result02: " + result02);
+
+        // 3. 配置 scope="prototype/singleton"
+        System.out.println(System.identityHashCode(userService01));
+        System.out.println(System.identityHashCode(userService02));
+
+    }
 }

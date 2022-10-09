@@ -21,7 +21,7 @@ public class UserServiceImplInitAndDestroy implements InitializingBean, Disposab
 
     public String queryUserInfo(){
         String userName = userDao.queryUserName(userId);
-        return DataUtils.format("查询用户信息\t {} {}, 公司: {}, 地址: {}",
+        return DataUtils.format("查询用户信息 {} {}, 公司: {}, 地址: {}",
                 userId, userName, company, location);
     }
 
