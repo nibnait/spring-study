@@ -42,7 +42,7 @@ public class AppTest {
 
         // 读取配置文件 & 注册 bean
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
-        reader.loadBeanDefinitions("classpath:spring.xml");
+        reader.loadBeanDefinitions("classpath:spring_PostProcessor.xml");
 
         // BeanDefinition 加载完成 & Bean实例化之前，修改 BeanDefinition 的属性值
         MyBeanFactoryPostProcessor beanFactoryPostProcessor = new MyBeanFactoryPostProcessor();
@@ -73,7 +73,7 @@ public class AppTest {
     @Test
     public void test_xml_ImplInitAndDestroy() {
         // 初始化 BeanFactory
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:springImplInitAndDestroy.xml");
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring_ImplInitAndDestroy.xml");
         applicationContext.registerShutdownHook();
 
         // 获取 Bean 对象调用方法
@@ -85,7 +85,7 @@ public class AppTest {
     @Test
     public void test_xml_ImplAware() {
         // 初始化 BeanFactory
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:springImplAware.xml.xml");
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring_ImplAware.xml");
         applicationContext.registerShutdownHook();
 
         // 获取 Bean 对象调用方法
@@ -99,7 +99,7 @@ public class AppTest {
     @Test
     public void test_xml_ImplScope() {
         // 初始化 BeanFactory
-        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:springScope.xml");
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring_Scope.xml");
         applicationContext.registerShutdownHook();
 
         // 获取 Bean 对象调用方法
