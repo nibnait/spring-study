@@ -3,7 +3,7 @@ package cc.tianbin.springframework.aop;
 /**
  * Created by nibnait on 2022/10/10
  */
-public interface PointCut {
+public interface Pointcut {
 
     ClassFilter getClassFilter();
 

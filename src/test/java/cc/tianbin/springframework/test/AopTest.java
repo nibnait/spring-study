@@ -7,10 +7,11 @@ import cc.tianbin.springframework.aop.aspectj.AspectJExpressionPointcut;
 import cc.tianbin.springframework.aop.framework.Cglib2AopProxy;
 import cc.tianbin.springframework.aop.framework.JdkDynamicAopProxy;
 import cc.tianbin.springframework.aop.framework.ReflectiveMethodInvocation;
+import cc.tianbin.springframework.context.support.ClassPathXmlApplicationContext;
 import cc.tianbin.springframework.test.bean.IUserService;
 import cc.tianbin.springframework.test.bean.UserService;
 import cc.tianbin.springframework.test.bean.UserServiceImplAOP;
-import cc.tianbin.springframework.test.bean.UserServiceInterceptor;
+import cc.tianbin.springframework.test.interceptor.UserServiceInterceptor;
 import io.github.nibnait.common.utils.date.DateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aopalliance.intercept.MethodInterceptor;
@@ -61,7 +62,7 @@ public class AopTest {
     }
 
     @Test
-    public void testAOP() throws NoSuchMethodException{
+    public void testAopAspectJ() throws NoSuchMethodException{
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut("execution(* cc.tianbin.springframework.test.bean.UserService.*(..))");
         Class<UserService> clazz = UserService.class;
         Method method = clazz.getDeclaredMethod("queryUserInfo");
@@ -90,4 +91,11 @@ public class AopTest {
         log.info("cglibProxy: {}", cglibProxy.queryUserInfo());
     }
 
+    @Test
+    public void testAOP() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring_aop.xml");
+        IUserService userService = applicationContext.getBean("userService", IUserService.class);
+        String result = userService.queryUserInfo();
+        log.info("result: {}", result);
+    }
 }

@@ -1,6 +1,6 @@
 package cc.tianbin.springframework.context.support;
 
-import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultListableBeanFactoryBean;
+import cc.tianbin.springframework.beans.factory.support.DefaultListableBeanFactory;
 import cc.tianbin.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 
 /**
@@ -10,7 +10,7 @@ import cc.tianbin.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 public abstract class AbstractXmlApplicationContext extends AbstractRefreshableApplicationContext {
 
     @Override
-    protected void loadBeanDefinitions(DefaultListableBeanFactoryBean beanFactory) {
+    protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) {
         XmlBeanDefinitionReader beanDefinitionReader = new XmlBeanDefinitionReader(beanFactory, this);
         String[] configLocations = getConfigLocations();
         if (configLocations != null) {

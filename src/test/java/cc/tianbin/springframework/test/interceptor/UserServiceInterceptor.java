@@ -1,4 +1,4 @@
-package cc.tianbin.springframework.test.bean;
+package cc.tianbin.springframework.test.interceptor;
 
 import io.github.nibnait.common.utils.date.DateUtils;
 import lombok.extern.slf4j.Slf4j;
