@@ -9,4 +9,6 @@ public interface InstantiationAwareBeanPostProcess extends BeanPostProcessor {
 
     Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException;
 
+    Object postProcessAfterInstantiation(Class<?> beanClass, String beanName) throws BeansException;
+
 }

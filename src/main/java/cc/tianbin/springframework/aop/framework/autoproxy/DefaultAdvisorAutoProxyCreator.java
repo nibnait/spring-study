@@ -39,6 +39,18 @@ public class DefaultAdvisorAutoProxyCreator implements InstantiationAwareBeanPos
 
     @Override
     public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
+        return postProcessInstantiation(beanClass, beanName);
+    }
+
+    @Override
+    public Object postProcessAfterInstantiation(Class<?> beanClass, String beanName) throws BeansException {
+        return postProcessInstantiation(beanClass, beanName);
+    }
+
+    /**
+     * 处理代理类
+     */
+    private Object postProcessInstantiation(Class<?> beanClass, String beanName) {
         if (isInfrastructureClass(beanClass)) {
             return null;
         }
