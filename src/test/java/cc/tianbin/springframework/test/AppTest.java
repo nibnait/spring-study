@@ -3,18 +3,17 @@ package cc.tianbin.springframework.test;
 import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultListableBeanFactoryBean;
 import cc.tianbin.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import cc.tianbin.springframework.context.support.ClassPathXmlApplicationContext;
-import cc.tianbin.springframework.test.bean.UserService;
-import cc.tianbin.springframework.test.bean.UserServiceImplAware;
-import cc.tianbin.springframework.test.bean.UserServiceImplInitAndDestroy;
-import cc.tianbin.springframework.test.bean.UserServiceImplScope;
+import cc.tianbin.springframework.test.bean.*;
 import cc.tianbin.springframework.test.common.CommonConstants;
 import cc.tianbin.springframework.test.common.MyBeanFactoryPostProcessor;
 import cc.tianbin.springframework.test.common.MyBeanPostProcessor;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /**
  * Created by nibnait on 2022/09/18
  */
+@Slf4j
 public class AppTest {
 
     @Test
@@ -114,6 +113,21 @@ public class AppTest {
         // 3. 配置 scope="prototype/singleton"
         System.out.println(System.identityHashCode(userService01));
         System.out.println(System.identityHashCode(userService02));
+    }
 
+    @Test
+    public void testProperty() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-property.xml");
+        UserServiceImpl userService = applicationContext.getBean("userService", UserServiceImpl.class);
+        String result = userService.queryUserInfo();
+        log.info("result: {} token: {}", result, userService.getToken());
+    }
+
+    @Test
+    public void testScan() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-scan.xml");
+        IUserService userService = applicationContext.getBean("userService", UserServiceImpl.class);
+        String result = userService.queryUserInfo();
+        System.out.println("result: " + result);
     }
 }
