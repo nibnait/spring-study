@@ -1,6 +1,6 @@
 package cc.tianbin.springframework.test;
 
-import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultListableBeanFactoryBean;
+import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultListableBeanFactory;
 import cc.tianbin.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import cc.tianbin.springframework.context.support.ClassPathXmlApplicationContext;
 import cc.tianbin.springframework.test.bean.*;
@@ -19,7 +19,7 @@ public class AppTest {
     @Test
     public void test_BeanFactory() {
         // 初始化 BeanFactory
-        DefaultListableBeanFactoryBean beanFactory = new DefaultListableBeanFactoryBean();
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
         // 读取配置文件 & 注册 bean
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
@@ -37,7 +37,7 @@ public class AppTest {
     @Test
     public void test_BeanFactoryPostProcessorAndBeanPostProcessor() {
         // 初始化 BeanFactory
-        DefaultListableBeanFactoryBean beanFactory = new DefaultListableBeanFactoryBean();
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 
         // 读取配置文件 & 注册 bean
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
@@ -130,4 +130,13 @@ public class AppTest {
         String result = userService.queryUserInfo();
         System.out.println("result: " + result);
     }
+
+    @Test
+    public void testScan2() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-annotation.xml");
+        IUserService userService = applicationContext.getBean("userService", UserServiceImpl.class);
+        String result = userService.queryUserInfo("1001");
+        System.out.println("result: " + result);
+    }
+
 }

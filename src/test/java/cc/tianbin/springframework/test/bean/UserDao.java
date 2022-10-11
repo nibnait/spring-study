@@ -1,5 +1,6 @@
 package cc.tianbin.springframework.test.bean;
 
+import cc.tianbin.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
  * Created by nibnait on 2022/10/01
  */
 @Slf4j
+@Component
 public class UserDao {
 
     private static Map<String, String> dataMap = new HashMap<>();

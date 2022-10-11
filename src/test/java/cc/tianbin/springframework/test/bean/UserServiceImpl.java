@@ -1,5 +1,7 @@
 package cc.tianbin.springframework.test.bean;
 
+import cc.tianbin.springframework.beans.factory.annotation.Autowired;
+import cc.tianbin.springframework.beans.factory.annotation.Value;
 import cc.tianbin.springframework.stereotype.Component;
 import lombok.Data;
 
@@ -12,7 +14,16 @@ import java.util.Random;
 @Data
 public class UserServiceImpl implements IUserService{
 
+    @Value("${token}")
     private String token;
+
+    @Autowired
+    private UserDao userDao;
+
+    @Override
+    public String queryUserInfo(String userId) {
+        return userDao.queryUserName(userId) + ", " + token;
+    }
 
     @Override
     public String queryUserInfo() {

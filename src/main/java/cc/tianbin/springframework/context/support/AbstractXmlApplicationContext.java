@@ -1,6 +1,6 @@
 package cc.tianbin.springframework.context.support;
 
-import cc.tianbin.springframework.beans.factory.support.DefaultListableBeanFactory;
+import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultListableBeanFactory;
 import cc.tianbin.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 
 /**

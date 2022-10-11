@@ -5,16 +5,19 @@ import cc.tianbin.springframework.beans.factory.ConfigurableListableBeanFactory;
 import cc.tianbin.springframework.beans.factory.config.BeanDefinition;
 import cc.tianbin.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory;
 import cc.tianbin.springframework.beans.factory.support.registry.BeanDefinitionRegistry;
+import io.github.nibnait.common.utils.DataUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 核心实现类
- * Created by nibnait on 2022/09/19
+ * Created by nibnait on 2022/10/10
  */
-public class DefaultListableBeanFactoryBean extends AbstractAutowireCapableBeanFactory implements BeanDefinitionRegistry, ConfigurableListableBeanFactory {
+public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements BeanDefinitionRegistry, ConfigurableListableBeanFactory {
 
     private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
@@ -27,14 +30,14 @@ public class DefaultListableBeanFactoryBean extends AbstractAutowireCapableBeanF
     public BeanDefinition getBeanDefinition(String beanName) {
         BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
         if (beanDefinition == null) {
-            throw new BeansException("No bean named {} is defined", beanName);
+            throw new BeansException("No bean named '{}' is defined", beanName);
         }
         return beanDefinition;
     }
 
     @Override
     public boolean containsBeanDefinition(String beanName) {
-        return beanDefinitionMap.keySet().contains(beanName);
+        return beanDefinitionMap.containsKey(beanName);
     }
 
     @Override
@@ -59,4 +62,19 @@ public class DefaultListableBeanFactoryBean extends AbstractAutowireCapableBeanF
         return result;
     }
 
+    @Override
+    public <T> T getBean(Class<T> requireType) throws BeansException {
+        List<String> beanNames = new ArrayList<>();
+        for (Map.Entry<String, BeanDefinition> entry : beanDefinitionMap.entrySet()) {
+            Class beanClass = entry.getValue().getBeanClass();
+            if (requireType.isAssignableFrom(beanClass)) {
+                beanNames.add(entry.getKey());
+            }
+        }
+        if (beanNames.size() == 1) {
+            return getBean(beanNames.get(0), requireType);
+        }
+
+        throw new BeansException("{} expect single bean bug found {}: {}", requireType, beanNames.size(), DataUtils.toJsonStringArray(beanNames));
+    }
 }

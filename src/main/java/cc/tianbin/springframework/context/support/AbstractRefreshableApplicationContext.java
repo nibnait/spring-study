@@ -2,7 +2,7 @@ package cc.tianbin.springframework.context.support;
 
 import cc.tianbin.springframework.beans.exception.BeansException;
 import cc.tianbin.springframework.beans.factory.ConfigurableListableBeanFactory;
-import cc.tianbin.springframework.beans.factory.support.DefaultListableBeanFactory;
+import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultListableBeanFactory;
 
 /**
  * 获取 Bean 工厂和加载资源
