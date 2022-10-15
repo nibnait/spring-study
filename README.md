@@ -12,3 +12,6 @@ AbstractAutowireCapableBeanFactory.createBeanInstance
 ### 资源加载器解析文件 注册对象
 XmlBeanDefinitionReader 中的 doLoadBeanDefinitions 与实际的Spring相差很大
 
+### 把AOP动态代理，融入到Bean的生命周期
+feature/aop_after_advice  
+加个AfterAdvice

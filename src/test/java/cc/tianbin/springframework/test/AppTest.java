@@ -139,4 +139,12 @@ public class AppTest {
         System.out.println("result: " + result);
     }
 
+    @Test
+    public void testAutoProxy() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-autoproxy.xml");
+        IUserService userService = applicationContext.getBean("userService", UserServiceImplAutoProxy.class);
+        String result = userService.queryUserInfo();
+        System.out.println("result: " + result);
+    }
+
 }

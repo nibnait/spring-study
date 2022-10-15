@@ -1,5 +1,7 @@
 package cc.tianbin.springframework.aop;
 
+import cc.tianbin.springframework.util.ClassUtils;
+
 /**
  * Created by nibnait on 2022/10/10
  */
@@ -15,7 +17,12 @@ public class TargetSource {
         return target;
     }
 
+    /**
+     * 获取 target 对象的接口信息
+     */
     public Class<?>[] getTargetClass() {
-        return this.target.getClass().getInterfaces();
+        Class<?> clazz = this.target.getClass();
+        clazz = ClassUtils.isCglibProxyClass(clazz) ? clazz.getSuperclass() : clazz;
+        return clazz.getInterfaces();
     }
 }
