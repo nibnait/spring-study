@@ -2,6 +2,10 @@ package cc.tianbin.springframework.test.bean;
 
 import cc.tianbin.springframework.beans.exception.BeansException;
 import cc.tianbin.springframework.beans.factory.*;
+import cc.tianbin.springframework.beans.factory.aware.ApplicationContextAware;
+import cc.tianbin.springframework.beans.factory.aware.BeanClassLoaderAware;
+import cc.tianbin.springframework.beans.factory.aware.BeanFactoryAware;
+import cc.tianbin.springframework.beans.factory.aware.BeanNameAware;
 import cc.tianbin.springframework.context.ApplicationContext;
 import io.github.nibnait.common.utils.DataUtils;
 import lombok.Data;

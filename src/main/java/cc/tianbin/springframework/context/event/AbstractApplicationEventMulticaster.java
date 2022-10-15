@@ -2,7 +2,7 @@ package cc.tianbin.springframework.context.event;
 
 import cc.tianbin.springframework.beans.exception.BeansException;
 import cc.tianbin.springframework.beans.factory.BeanFactory;
-import cc.tianbin.springframework.beans.factory.BeanFactoryAware;
+import cc.tianbin.springframework.beans.factory.aware.BeanFactoryAware;
 import cc.tianbin.springframework.context.ApplicationEvent;
 import cc.tianbin.springframework.context.ApplicationListener;
 import cc.tianbin.springframework.util.ClassUtils;

@@ -3,9 +3,9 @@ package cc.tianbin.springframework.core.io.resource.impl;
 import cc.tianbin.springframework.core.io.resource.Resource;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 /**
  * Created by nibnait on 2022/10/06
@@ -28,7 +28,7 @@ public class FileSystemResource implements Resource {
 
     @Override
     public InputStream getInputStream() throws IOException {
-        return new FileInputStream(this.file);
+        return Files.newInputStream(file.toPath());
     }
 
     @Override

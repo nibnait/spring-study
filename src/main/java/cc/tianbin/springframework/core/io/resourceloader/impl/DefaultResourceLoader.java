@@ -28,6 +28,5 @@ public class DefaultResourceLoader implements ResourceLoader {
                 return new FileSystemResource(location);
             }
         }
-
     }
 }

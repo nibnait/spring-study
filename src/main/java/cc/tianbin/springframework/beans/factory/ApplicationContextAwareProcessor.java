@@ -1,6 +1,7 @@
 package cc.tianbin.springframework.beans.factory;
 
 import cc.tianbin.springframework.beans.exception.BeansException;
+import cc.tianbin.springframework.beans.factory.aware.ApplicationContextAware;
 import cc.tianbin.springframework.beans.factory.config.BeanPostProcessor;
 import cc.tianbin.springframework.context.ApplicationContext;
 

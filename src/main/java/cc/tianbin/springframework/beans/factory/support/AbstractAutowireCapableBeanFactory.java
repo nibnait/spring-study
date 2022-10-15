@@ -4,6 +4,10 @@ import cc.tianbin.springframework.beans.exception.BeansException;
 import cc.tianbin.springframework.beans.PropertyValue;
 import cc.tianbin.springframework.beans.PropertyValues;
 import cc.tianbin.springframework.beans.factory.*;
+import cc.tianbin.springframework.beans.factory.aware.Aware;
+import cc.tianbin.springframework.beans.factory.aware.BeanClassLoaderAware;
+import cc.tianbin.springframework.beans.factory.aware.BeanFactoryAware;
+import cc.tianbin.springframework.beans.factory.aware.BeanNameAware;
 import cc.tianbin.springframework.beans.factory.config.*;
 import cc.tianbin.springframework.beans.factory.support.instantiation.InstantiationStrategy;
 import cc.tianbin.springframework.beans.factory.support.instantiation.impl.CglibSubclassingInstantiationStrategy;
@@ -69,23 +73,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return bean;
     }
 
-    /**
-     * 在设置 Bean 属性之前，允许 BeanPostProcessor 修改属性值
-     */
-    private void applyBeanPostProcessorsBeforeApplyingPropertyValues(String beanName, Object bean, BeanDefinition beanDefinition) {
-        for (BeanPostProcessor beanPostProcessor : getBeanPostProcessors()) {
-            if (beanPostProcessor instanceof InstantiationAwareBeanPostProcess) {
-                PropertyValues propertyValues = ((InstantiationAwareBeanPostProcess) beanPostProcessor).postProcessPropertyValues(beanDefinition.getPropertyValues(), bean, beanName);
-                if (propertyValues != null) {
-                    for (PropertyValue propertyValue : propertyValues.getPropertyValues()) {
-                        beanDefinition.getPropertyValues().addPropertyValue(propertyValue);
-                    }
-                }
-            }
-        }
-
-    }
-
     protected Object resolveBeforeInstantiation(String beanName, BeanDefinition beanDefinition) {
         Object bean = applyBeanPostProcessorsBeforeInstantiation(beanDefinition.getBeanClass(), beanName);
         if (bean != null) {
@@ -131,6 +118,23 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         }
 
         return getInstantiationStrategy().instantiate(beanDefinition, beanName, constructorToUse, args);
+    }
+
+    /**
+     * 在设置 Bean 属性之前，允许 BeanPostProcessor 修改属性值
+     */
+    private void applyBeanPostProcessorsBeforeApplyingPropertyValues(String beanName, Object bean, BeanDefinition beanDefinition) {
+        for (BeanPostProcessor beanPostProcessor : getBeanPostProcessors()) {
+            if (beanPostProcessor instanceof InstantiationAwareBeanPostProcess) {
+                PropertyValues propertyValues = ((InstantiationAwareBeanPostProcess) beanPostProcessor).postProcessPropertyValues(beanDefinition.getPropertyValues(), bean, beanName);
+                if (propertyValues != null) {
+                    for (PropertyValue propertyValue : propertyValues.getPropertyValues()) {
+                        beanDefinition.getPropertyValues().addPropertyValue(propertyValue);
+                    }
+                }
+            }
+        }
+
     }
 
     /**

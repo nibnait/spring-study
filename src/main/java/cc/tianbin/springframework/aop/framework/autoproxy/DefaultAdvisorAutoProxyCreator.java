@@ -6,7 +6,7 @@ import cc.tianbin.springframework.aop.framework.ProxyFactory;
 import cc.tianbin.springframework.beans.PropertyValues;
 import cc.tianbin.springframework.beans.exception.BeansException;
 import cc.tianbin.springframework.beans.factory.BeanFactory;
-import cc.tianbin.springframework.beans.factory.BeanFactoryAware;
+import cc.tianbin.springframework.beans.factory.aware.BeanFactoryAware;
 import cc.tianbin.springframework.beans.factory.config.InstantiationAwareBeanPostProcess;
 import cc.tianbin.springframework.beans.factory.support.registry.impl.DefaultListableBeanFactory;
 import lombok.extern.slf4j.Slf4j;
