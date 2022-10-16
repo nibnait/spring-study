@@ -101,6 +101,8 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             readPropertyValue(beanDefinition, bean);
             // 注册 BeanDefinition
             getRegistry().registerBeanDefinition(beanName, beanDefinition);
+
+            registerCount ++;
         }
 
         return registerCount;

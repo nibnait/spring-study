@@ -3,9 +3,9 @@ package cc.tianbin.springframework.beans.factory.annotation;
 import cc.tianbin.springframework.beans.PropertyValues;
 import cc.tianbin.springframework.beans.exception.BeansException;
 import cc.tianbin.springframework.beans.factory.BeanFactory;
-import cc.tianbin.springframework.beans.factory.aware.BeanFactoryAware;
 import cc.tianbin.springframework.beans.factory.ConfigurableListableBeanFactory;
-import cc.tianbin.springframework.beans.factory.config.InstantiationAwareBeanPostProcess;
+import cc.tianbin.springframework.beans.factory.aware.BeanFactoryAware;
+import cc.tianbin.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import cc.tianbin.springframework.util.ClassUtils;
 import cn.hutool.core.bean.BeanUtil;
 
@@ -15,7 +15,7 @@ import java.lang.reflect.Field;
  * 扫描自定义注解
  * Created by nibnait on 2022/10/11
  */
-public class AutowiredAnnotationBeanPostProcessor implements InstantiationAwareBeanPostProcess, BeanFactoryAware {
+public class AutowiredAnnotationBeanPostProcessor implements InstantiationAwareBeanPostProcessor, BeanFactoryAware {
 
     private ConfigurableListableBeanFactory beanFactory;
 
@@ -25,18 +25,13 @@ public class AutowiredAnnotationBeanPostProcessor implements InstantiationAwareB
     }
 
     @Override
-    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        return null;
-    }
-
-    @Override
-    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        return null;
-    }
-
-    @Override
     public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
         return null;
+    }
+
+    @Override
+    public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
+        return true;
     }
 
     @Override
@@ -75,5 +70,15 @@ public class AutowiredAnnotationBeanPostProcessor implements InstantiationAwareB
         }
 
         return propertyValues;
+    }
+
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        return null;
+    }
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        return null;
     }
 }

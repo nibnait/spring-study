@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 /**
  * Created by nibnait on 2022/10/10
  */
-public class Cglib2AopProxy implements AopProxy{
+public class Cglib2AopProxy implements AopProxy {
 
     private final AdvisedSupport advised;
 

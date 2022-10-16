@@ -15,16 +15,16 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 
     @Override
     public Object instantiate(BeanDefinition beanDefinition, String beanName, Constructor constructor, Object[] args) throws BeansException {
-        Class beanClass = beanDefinition.getBeanClass();
+        Class clazz = beanDefinition.getBeanClass();
         try {
             if (constructor == null) {
-                return beanClass.getDeclaredConstructor().newInstance();
+                return clazz.getDeclaredConstructor().newInstance();
+            } else {
+                return clazz.getDeclaredConstructor(constructor.getParameterTypes()).newInstance(args);
             }
-
-            return beanClass.getDeclaredConstructor(constructor.getParameterTypes()).newInstance();
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
                  InvocationTargetException e) {
-            throw new BeansException(e, "Failed to instantiate [{}]", beanClass.getName());
+            throw new BeansException(e, "Failed to instantiate [{}]", clazz.getName());
         }
     }
 
