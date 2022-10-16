@@ -6,15 +6,15 @@ import cc.tianbin.springframework.beans.exception.BeansException;
 /**
  * Created by nibnait on 2022/10/15
  */
-public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor{
+public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 
     /**
-     * 在 Bean 对象执行初始化方法之前，执行此方法
+     * 在 Bean 对象执行实例化方法之前，执行此方法
      */
     Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException;
 
     /**
-     * 在 Bean 对象执行初始化方法之后，执行此方法
+     * 在 Bean 对象执行实例化方法之后，执行此方法
      */
     boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException;
 
