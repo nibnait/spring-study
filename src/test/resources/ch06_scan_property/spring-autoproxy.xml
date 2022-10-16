@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userService" class="cc.tianbin.springframework.test.chapter.ch06_scan_property.bean.UserServiceImplAutoProxy">
+        <property name="token" value="123asdf"/>
+    </bean>
+
+    <bean class="cc.tianbin.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <bean id="userServiceAdvice" class="cc.tianbin.springframework.test.interceptor.UserServiceAdvice"/>
+
+    <bean id="methodBeforeAdviceInterceptor" class="cc.tianbin.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor">
+        <property name="advice" ref="userServiceAdvice"/>
+    </bean>
+    <bean id="beforePointcutAdvisor" class="cc.tianbin.springframework.aop.aspectj.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* cc.tianbin.springframework.test.chapter.ch06_scan_property.bean.IUserService.*(..))"/>
+        <property name="advice" ref="methodBeforeAdviceInterceptor"/>
+    </bean>
+
+</beans>

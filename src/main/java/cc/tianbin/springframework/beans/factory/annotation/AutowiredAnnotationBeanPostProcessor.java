@@ -6,8 +6,10 @@ import cc.tianbin.springframework.beans.factory.BeanFactory;
 import cc.tianbin.springframework.beans.factory.ConfigurableListableBeanFactory;
 import cc.tianbin.springframework.beans.factory.aware.BeanFactoryAware;
 import cc.tianbin.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
+import cc.tianbin.springframework.core.convert.ConversionService;
 import cc.tianbin.springframework.util.ClassUtils;
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.TypeUtil;
 
 import java.lang.reflect.Field;
 
@@ -45,8 +47,19 @@ public class AutowiredAnnotationBeanPostProcessor implements InstantiationAwareB
         for (Field field : declaredFields) {
             Value valueAnnotation = field.getAnnotation(Value.class);
             if (valueAnnotation != null) {
-                String value = valueAnnotation.value();
-                value = beanFactory.resolveEmbeddedValue(value);
+                Object value = valueAnnotation.value();
+                value = beanFactory.resolveEmbeddedValue((String) value);
+
+                // 类型转换
+                ConversionService conversionService = beanFactory.getConversionService();
+                if (conversionService != null) {
+                    Class<?> sourceType = value.getClass();
+                    Class<?> targetType = (Class<?>) TypeUtil.getType(field);
+                    if (conversionService.canConvert(sourceType, targetType)) {
+                        value = conversionService.convert(value, targetType);
+                    }
+                }
+
                 BeanUtil.setFieldValue(bean, field.getName(), value);
             }
         }

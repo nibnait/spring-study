@@ -12,7 +12,9 @@ import cc.tianbin.springframework.beans.factory.aware.BeanNameAware;
 import cc.tianbin.springframework.beans.factory.config.*;
 import cc.tianbin.springframework.beans.factory.support.instantiation.InstantiationStrategy;
 import cc.tianbin.springframework.beans.factory.support.instantiation.impl.SimpleInstantiationStrategy;
+import cc.tianbin.springframework.core.convert.ConversionService;
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.TypeUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Constructor;
@@ -201,6 +203,16 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                     // A 依赖 B，获取 B 的实例化
                     BeanReference beanReference = (BeanReference) value;
                     value = getBean(beanReference.getBeanName());
+                } else {
+                    // 类型转换
+                    ConversionService conversionService = getConversionService();
+                    if (conversionService != null) {
+                        Class<?> sourceType = value.getClass();
+                        Class<?> targetType = (Class<?>) TypeUtil.getFieldType(bean.getClass(), name);
+                        if (conversionService.canConvert(sourceType, targetType)) {
+                            value = conversionService.convert(value, targetType);
+                        }
+                    }
                 }
 
                 // 属性填充

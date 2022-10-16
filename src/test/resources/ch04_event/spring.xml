@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean class="cc.tianbin.springframework.test.chapter.ch04_event.listener.ContextRefreshedEventListener"/>
+    <bean class="cc.tianbin.springframework.test.chapter.ch04_event.listener.CustomEventListener"/>
+    <bean class="cc.tianbin.springframework.test.chapter.ch04_event.listener.ContextClosedEventListener"/>
+
+</beans>

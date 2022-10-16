@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean id="userDao" class="cc.tianbin.springframework.test.chapter.ch02_context.bean.UserDao"/>
+
+    <bean id="userService" class="cc.tianbin.springframework.test.chapter.ch02_context.bean.UserService">
+        <property name="userId" value="1001"/>
+        <property name="company" value="腾讯"/>
+        <property name="location" value="深圳"/>
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean class="cc.tianbin.springframework.test.chapter.ch02_context.processor.MyBeanFactoryPostProcessor"/>
+    <bean class="cc.tianbin.springframework.test.chapter.ch02_context.processor.MyBeanPostProcessor"/>
+</beans>

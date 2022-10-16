@@ -12,6 +12,7 @@ import cc.tianbin.springframework.context.event.ApplicationEventMulticaster;
 import cc.tianbin.springframework.context.event.ContextClosedEvent;
 import cc.tianbin.springframework.context.event.ContextRefreshedEvent;
 import cc.tianbin.springframework.context.event.SimpleApplicationEventMulticaster;
+import cc.tianbin.springframework.core.convert.ConversionService;
 import cc.tianbin.springframework.core.io.resourceloader.impl.DefaultResourceLoader;
 
 import java.util.Collection;
@@ -53,6 +54,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
         // 注册事件监听器
         registerListeners();
 
+        // 设置类型转换器、提前实例化 Bean 对象
+        finishBeanFactoryInitialization(beanFactory);
+
         // 发布容器刷新完成事件
         finishRefresh();
     }
@@ -86,6 +90,19 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
         for (ApplicationListener listener : applicationListeners) {
             applicationEventMulticaster.addApplicationListener(listener);
         }
+    }
+
+    protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory) {
+        // 设置类型转换器
+        if (beanFactory.containsBean("conversionService")) {
+            Object conversionService = beanFactory.getBean("conversionService");
+            if (conversionService instanceof ConversionService) {
+                beanFactory.setConversionService((ConversionService) conversionService);
+            }
+        }
+
+        // 提前实例化单例 Bean 对象
+        beanFactory.preInstantiateSingletons();
     }
 
     private void finishRefresh() {
@@ -125,6 +142,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     @Override
     public String[] getBeanDefinitionNames() {
         return getBeanFactory().getBeanDefinitionNames();
+    }
+
+    @Override
+    public boolean containsBean(String name) {
+        return getBeanFactory().containsBean(name);
     }
 
     @Override

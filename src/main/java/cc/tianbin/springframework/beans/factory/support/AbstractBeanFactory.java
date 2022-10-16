@@ -4,6 +4,7 @@ import cc.tianbin.springframework.beans.factory.FactoryBean;
 import cc.tianbin.springframework.beans.factory.config.BeanDefinition;
 import cc.tianbin.springframework.beans.factory.config.BeanPostProcessor;
 import cc.tianbin.springframework.beans.factory.config.ConfigurableBeanFactory;
+import cc.tianbin.springframework.core.convert.ConversionService;
 import cc.tianbin.springframework.util.ClassUtils;
 import cc.tianbin.springframework.util.StringValueResolver;
 
@@ -16,11 +17,25 @@ import java.util.List;
  */
 public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport implements ConfigurableBeanFactory {
 
+    /**
+     * ClassLoader to resolve bean class names with, if necessary
+     */
     private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
+    /**
+     * BeanPostProcessors to apply in createBean
+     */
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
 
+    /**
+     * String resolvers to apply e.g. to annotation attribute values
+     */
     private final List<StringValueResolver> embeddedValueResolvers = new ArrayList<>();
+
+    /**
+     * 类型转换接口
+     */
+    private ConversionService conversionService;
 
     @Override
     public Object getBean(String name) {
@@ -36,6 +51,13 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
     public <T> T getBean(String name, Class<T> requiredType) {
         return (T) getBean(name);
     }
+
+    @Override
+    public boolean containsBean(String name) {
+        return containsBeanDefinition(name);
+    }
+
+    protected abstract boolean containsBeanDefinition(String beanName);
 
     protected <T> T doGetBean(String beanName, Object[] args) {
         Object sharedInstance = getSingleton(beanName);
@@ -92,6 +114,16 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
             result = resolver.resolveStringValue(result);
         }
         return result;
+    }
+
+    @Override
+    public void setConversionService(ConversionService conversionService) {
+        this.conversionService = conversionService;
+    }
+
+    @Override
+    public ConversionService getConversionService() {
+        return this.conversionService;
     }
 
     public List<BeanPostProcessor> getBeanPostProcessors() {

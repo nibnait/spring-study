@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean class="cc.tianbin.springframework.beans.factory.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:ch06_scan_property/token.properties"/>
+    </bean>
+
+    <bean id="userService" class="cc.tianbin.springframework.test.chapter.ch06_scan_property.bean.UserServiceImpl">
+        <property name="token" value="${token}"/>
+    </bean>
+
+</beans>
