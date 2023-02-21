@@ -9,8 +9,9 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>spring-xfg</module>
-        <module>spring-wxz</module>
+        <module>spring-hand-write</module>
+        <module>source-code-spring</module>
+        <module>source-code-spring-boot</module>
     </modules>
 
     <properties>
