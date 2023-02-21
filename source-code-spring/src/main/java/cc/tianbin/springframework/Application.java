@@ -1,5 +1,6 @@
 package cc.tianbin.springframework;
 
+import cc.tianbin.springframework.config.AppConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**

@@ -1,4 +1,4 @@
-package cc.tianbin.springframework;
+package cc.tianbin.springframework.config;
 
 import org.springframework.context.annotation.ComponentScan;
 
