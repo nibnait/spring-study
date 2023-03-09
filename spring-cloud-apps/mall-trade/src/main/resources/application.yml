@@ -12,6 +12,6 @@ spring:
 
   application:
     # 服务名称
-    name: order
+    name: mall-trade
 
   # ip 192.168.56.1:9091
