@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    nacos:
+      # nacos作为配置中心的地址
+      server-addr: localhost:8848
+      config:
+        file-extension: yaml
+        shared-configs[0]:   # mysql.yaml
+          data-id: mysql.yaml
+          refresh: true
+
+        shared-configs[1]: # es.yaml
+          data-id: es.yaml
+          refresh: true
+  application:
+    name: user    # user-dev.yaml    user
+  profiles:
+    active: dev    # user-dev.yaml   dev
+
+
+# 只能用user    user-dev.yaml   user.yaml
+
+# mysql.yaml  esurl.yaml   使用不同名称公共的配置文件

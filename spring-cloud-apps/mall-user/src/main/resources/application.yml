@@ -1,0 +1,47 @@
+server:
+  port: 8081
+
+
+spring:
+  cloud:
+    nacos:
+      # nacos server的地址
+      server-addr: localhost:8848
+#      discovery:
+        # 给当前这个服务指定一下命名空间
+#        namespace: 6708107b-9b18-4476-8566-30abf8f31a31    # 将这个实例 user: 192.168.56.1:9091注册到该命名空间
+#        group: shop-group
+#        cluster-name: BJ
+        # 元数据
+#        metadata:
+#          name: Jack
+#          age: 17
+
+  application:
+    # 服务名称
+    name: user
+
+  # ip 192.168.56.1:9091
+  main:
+    allow-circular-references: true
+logging:
+  level:
+    com.jack.user.openfeign.OrderFeignClient: DEBUG
+feign:
+  httpclient:   # httpurlconnection--->httpclient
+    enabled: true
+    max-connections: 200
+    max-connections-per-route: 50
+
+lecturer: Jack66
+
+
+
+
+
+
+
+
+
+
+

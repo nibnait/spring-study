@@ -1,0 +1,17 @@
+server:
+  port: 9091
+
+#  curl -X POST
+ # 'http://127.0.0.1:8848/nacos/v1/ns/instance?serviceName=nacos.naming.serviceName&ip=20.18.7.10&port=8080'
+
+spring:
+  cloud:
+    nacos:
+      # nacos server的地址
+      server-addr: localhost:8848
+
+  application:
+    # 服务名称
+    name: order
+
+  # ip 192.168.56.1:9091
