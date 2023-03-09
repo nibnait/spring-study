@@ -1,0 +1,7 @@
+###
+GET {{mall-user}}/user/hello
+
+###
+GET {{mall-user}}/user/hello
+
+

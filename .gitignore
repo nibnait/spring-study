@@ -32,3 +32,7 @@ build/
 *.DS_Store
 
 /out
+
+## nacos
+/spring-cloud-alibaba/nacos-1.4.3-home/
+/spring-cloud-alibaba/nacos-2.0.4-home/

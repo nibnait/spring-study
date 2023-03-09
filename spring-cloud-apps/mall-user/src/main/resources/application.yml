@@ -19,7 +19,7 @@ spring:
 
   application:
     # 服务名称
-    name: user
+    name: mall-user
 
   # ip 192.168.56.1:9091
   main:
