@@ -12,7 +12,6 @@
         <module>hand-write-spring</module>
         <module>source-code-spring</module>
         <module>source-code-spring-boot</module>
-        <module>demo-cache</module>
     </modules>
 
     <properties>
